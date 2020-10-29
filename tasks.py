@@ -7,6 +7,7 @@ os.environ['ORACLE_HOME'] = "/opt/oracle/product/18c/dbhomeXE"
 username = os.environ['ORACLE_USERNAME']
 password = os.environ['ORACLE_PASSWORD']
 database = os.environ['ORACLE_DATABASE']
+
 def count_words_at_url():
 
     return "adasdadsasd"
