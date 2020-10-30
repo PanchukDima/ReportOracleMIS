@@ -2,6 +2,7 @@ import requests
 import cx_Oracle
 import json
 import os
+from database import database
 os.environ['LD_LIBRARY_PATH'] = "/opt/oracle/product/18c/dbhomeXE/lib"
 os.environ['ORACLE_HOME'] = "/opt/oracle/product/18c/dbhomeXE"
 username = os.environ['ORACLE_USERNAME']
@@ -27,6 +28,10 @@ def load_patients():
         return json.dumps(data)
 
 def migrate_asov_to_ariadna():
-    with cx_Oracle.connect(username, password, database) as connection:
-        cursor = connection.cursor()
+    db = database()
+    db.callSql("begin solution_med.pkg_unique_asov.MIGRATE_asov_TO_ariadna(); commit; end;")
+    return "OK"
+def exportEIS():
+    db = database()
+    db.callSql("begin solution_med.pkg_unique_asov.MIGRATE_asov_TO_ariadna(); commit; end;")
     return "OK"
