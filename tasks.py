@@ -27,3 +27,8 @@ def load_patients():
                  "secondname": result[3]
                  })
         return json.dumps(data)
+
+def migrate_asov_to_ariadna():
+    with cx_Oracle.connect(username, password, database) as connection:
+        cursor = connection.cursor()
+    return "OK"
