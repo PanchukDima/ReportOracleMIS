@@ -2,8 +2,8 @@ from flask import Flask
 import time
 from rq import Queue
 from redis import Redis
-from flask import Flask, render_template
-from tasks import load_patients
+from flask import Flask, render_template, request
+from tasks import load_patients, valid_login
 import json
 functions = {"load_patients": load_patients}
 app = Flask(__name__)
@@ -39,6 +39,10 @@ def get_list_queue():
 def clear_queue():
     queue.empty()
     return "Clear"
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+
 
 if __name__ == '__main__':
     app.run()

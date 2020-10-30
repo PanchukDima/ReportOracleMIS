@@ -12,8 +12,6 @@ def count_words_at_url():
 
     return "adasdadsasd"
 
-
-
 def load_patients():
     data = {"data":[]}
     with cx_Oracle.connect(username, password, database) as connection:
