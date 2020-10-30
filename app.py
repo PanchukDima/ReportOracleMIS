@@ -3,7 +3,8 @@ import time
 from rq import Queue
 from redis import Redis
 from flask import Flask, render_template, request
-from tasks import load_patients, valid_login
+from tasks import load_patients
+from database import database
 import json
 functions = {"load_patients": load_patients}
 app = Flask(__name__)
@@ -12,7 +13,7 @@ queue = Queue(connection=Redis(), default_timeout=3600)
 @app.route('/')
 def hello_world():
     List_commands = ["load_patients"]
-    return render_template('index.html', my_string="Список доступных комманд", List_commands=List_commands)
+    return render_template('login.html')
 
 @app.route('/task/<func>')
 def create_task(func):
@@ -39,10 +40,15 @@ def get_list_queue():
 def clear_queue():
     queue.empty()
     return "Clear"
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-
+        db = database()
+        if db.loginSQLOnlyPass(request.form['password']):
+            return "Hello"
+        else:
+            return "Bye"
+    return "Bue"
 
 if __name__ == '__main__':
     app.run()
