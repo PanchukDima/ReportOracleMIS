@@ -65,8 +65,8 @@ def result_task(id):
         return "Not found", 404
 @app.route('/tasks')
 def get_list_queue():
-
-    return "queued"
+    db = database()
+    return db.getListTasks(session['userid'])
 @app.route('/queue/clear')
 def clear_queue():
     queue.empty()

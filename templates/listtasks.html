@@ -3,41 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>Список задач</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <style type="text/css">
+
+      body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+    margin-top: 160px;
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+.header {
+    font-size: 28px;
+    color: #f1f1f1;
+  height: 160px;
+  width: 100%;
+    margin-left: 152px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  background-color: #111;
+  overflow-x: hidden;
+
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+    </style>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
     <script type="application/javascript">
-        $('#example').dataTable( {
-        "ajax": {
-        "url": "/gettasks",
-        "type": "POST"
-  }
-} );
-</script>
+    var refInterval = window.setInterval('update()', 30000);
+    var update = function() {
+        $.ajax({
+      url: '/tasks',
+      type: 'get',
+      dataType: 'json',
+      success: function (data) {
+          console.log(data)
+        data.tasks.forEach(function(item) {
+            var img = '';
+            if(item.status === 0)
+            {
+                img = '<img width="16" height="16" src={{ url_for('static', filename='91.gif') }}/>';
+            }
+            else if(item.status === 1)
+            {
+                img = '<img width="16" height="16" src={{ url_for('static', filename='62.png') }}/>';
+            }
+    // item - один элемент массива, можно его рендерить как-угодно, например
+            $("#playlist").html("");
+        $('#playlist').append('<div><p>Задача:' + item.nametask + '     Дата запуска: '+item.datestart+' Статус: ' + img + '</p></div>');
+        });
+      }
+    }
+  )};
+    update();
+
+
+    </script>
+
 </head>
 <body>
-<table id="tasklist" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Extn.</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Extn.</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
-    </table>
+<div class="header">
+    <p>Список задач</p>
+</div>
+<div class="sidenav">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+</div>
+<div class="main">
+
+    <div id="playlist">
+  </div>
+</div>
+
 </body>
 
 </html>
