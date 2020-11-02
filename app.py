@@ -79,8 +79,12 @@ def clear_queue():
     return "Clear"
 @app.route('/exportoms')
 def show_export():
-    list_dep = [{"id":0,"name":"text"}, {"id":1,"name":"text2"} ]
-    return render_template("exportOMS.html", list_dep=list_dep)
+    db = database()
+    db_eis = db.getEISBD()
+    type_visit = db.getTypeVisit()
+    visit_purpose = db.getVisitPurpose()
+    list_dep = db.getDepList()
+    return render_template("exportOMS.html", list_dep=list_dep, db_eis=db_eis,type_visit=type_visit,visit_purpose=visit_purpose)
 
 
 if __name__ == '__main__':

@@ -82,62 +82,38 @@
   <a href="#contact">Contact</a>
 </div>
 <div class="container">
-    <form action="/createTask" method="post">
+    <form action="/createTask" method="post" name="exportOMSForm" novalidate>
         <p>Дата С:<input type="date" name="date_in"/></p>
         <p>Дата По:<input type="date" name="date_to"/></p>
         <p>Отделения</p><br>
         <select required multiple="multiple" name="departments" id="dep_select">
+
                     {% for n in list_dep %}
                         <option value="{{ n["id"] }}">{{ n["name"] }}</option>
                     {% endfor %}
+
                 </select>
+
         <p>База данных</p>
         <select required multiple="multiple" name="db_eis" id="db_eis_select">
 
-                    <option>Apple</option>
-                    <option>Banana</option>
-                    <option>Blueberry</option>
-                    <option>Cherry</option>
-                    <option>Coconut</option>
-                    <option>Grapefruit</option>
-                    <option>Kiwi</option>
-                    <option>Lemon</option>
-                    <option>Lime</option>
-                    <option>Mango</option>
-                    <option>Orange</option>
-                    <option>Papaya</option>
+                    {% for n in db_eis %}
+                        <option value="{{ n["id"] }}">{{ n["name"] }}</option>
+                    {% endfor %}
                 </select>
         <p>Тип посещения</p><br>
         <select required multiple="multiple" name="type_visit" id="type_visit_select">
-                    <option>Apple</option>
-                    <option>Banana</option>
-                    <option>Blueberry</option>
-                    <option>Cherry</option>
-                    <option>Coconut</option>
-                    <option>Grapefruit</option>
-                    <option>Kiwi</option>
-                    <option>Lemon</option>
-                    <option>Lime</option>
-                    <option>Mango</option>
-                    <option>Orange</option>
-                    <option>Papaya</option>
+                    {% for n in type_visit %}
+                        <option value="{{ n["id"] }}">{{ n["name"] }}</option>
+                    {% endfor %}
                 </select>
         <p>Номер пациента<input type="text" name="number_pat"/></p>
         <p>Номер талона<input type="text" name="number_visit"/></p>
         <p>Цели посещений в талонах</p><br>
         <select required multiple="multiple" name="visit_purpose" id="visit_purpose_select">
-                    <option>Apple</option>
-                    <option>Banana</option>
-                    <option>Blueberry</option>
-                    <option>Cherry</option>
-                    <option>Coconut</option>
-                    <option>Grapefruit</option>
-                    <option>Kiwi</option>
-                    <option>Lemon</option>
-                    <option>Lime</option>
-                    <option>Mango</option>
-                    <option>Orange</option>
-                    <option>Papaya</option>
+                    {% for n in visit_purpose %}
+                        <option value="{{ n["id"] }}">{{ n["name"] }}</option>
+                    {% endfor %}
                 </select>
         <p>Выгружать амб. талоны  Да<input type="radio" id="export_amd_talon" name="export_amd_talon" value="True">Нет<input type="radio" id="export_amd_talon" name="export_amd_talon" value="False"></p>
         <p>Выгружать диаг. иссл. (Диагностические АРМы)  Да<input type="radio" id="export_diagnostic_talon" name="export_diagnostic_talon" value="True">Нет<input type="radio" id="export_diagnostic_talon" name="export_diagnostic_talon" value="False"></p>
@@ -153,22 +129,22 @@
 <script>
             var select = document.getElementById("dep_select");
             multi(select, {
-                enable_search: false
+                enable_search: true
             });
 
             var select = document.getElementById("db_eis_select");
             multi(select, {
-                enable_search: false
+                enable_search: true
             });
             var select = document.getElementById("type_visit_select");
             multi(select, {
-                enable_search: false
+                enable_search: true
             });
             var select = document.getElementById("visit_purpose_select");
             multi(select, {
-                enable_search: false
+                enable_search: true
             });
-            $('#visit_purpose_select').find(':not(:item selected)').prop('disabled',true);
+
             /*$('#type_visit_select')find(':not(:selected)').prop('disabled',true);
             $('#db_eis_select')find(':not(:selected)').prop('disabled',true);
             $('#dep_select')find(':not(:selected)').prop('disabled',true);*/

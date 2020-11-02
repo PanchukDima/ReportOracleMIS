@@ -43,3 +43,59 @@ class database():
             cursor = connection.cursor()
             data = cursor.execute(sqltext)
             return True
+    def getDepList(self):
+        list = []
+        with cx_Oracle.connect(username, password, database_name) as connection:
+            cursor = connection.cursor()
+            data = cursor.execute("""SELECT keyid
+              ,text
+              ,(SELECT stext
+                  FROM dep
+                 WHERE sortcode = substr(d.sortcode, 1, 3)) AS str
+            FROM dep d
+            WHERE status = 1
+            AND substr(d.sortcode, 4, 3) = '001'
+            ORDER BY str
+         ,text""")
+            for dep in data.fetchall():
+                list.append({"id":dep[0], "name":dep[1]})
+            return list
+    def getEISBD(self):
+        list=[]
+        with cx_Oracle.connect(username, password, database_name) as connection:
+            cursor = connection.cursor()
+            data = cursor.execute("""SELECT keyid
+                  ,code
+                  ,text
+              FROM lu
+             WHERE tag = 322
+               AND status = 1""")
+            for eisdb in data.fetchall():
+                list.append({'id':eisdb[0], 'name':eisdb[2]})
+            return list
+    def getTypeVisit(self):
+        list = []
+        with cx_Oracle.connect(username, password, database_name) as connection:
+            cursor = connection.cursor()
+            data = cursor.execute("""SELECT DISTINCT id_case_cast AS keyid
+               ,case_cast_name
+                FROM solution_eis.vmu_case_cast
+                WHERE id_ump IN (2, 3, 4)""")
+            for typeVisit in data.fetchall():
+                list.append({'id': typeVisit[0], 'name': typeVisit[1]})
+            return list
+    def getVisitPurpose(self):
+        list = []
+        with cx_Oracle.connect(username, password, database_name) as connection:
+            cursor = connection.cursor()
+            data = cursor.execute("""SELECT code AS keyid
+                      ,code AS code
+                      ,text AS text
+                  FROM lu
+                 WHERE tag = 20
+                   AND status = 1
+                   AND code BETWEEN 1 AND 99
+                    """)
+            for VisitPurpose in data.fetchall():
+                list.append({'id': VisitPurpose[0], 'name': VisitPurpose[2]})
+            return list
