@@ -87,21 +87,13 @@
         <p>Дата По:<input type="date" name="date_to"/></p>
         <p>Отделения</p><br>
         <select required multiple="multiple" name="departments" id="dep_select">
-                    <option>Apple</option>
-                    <option>Banana</option>
-                    <option>Blueberry</option>
-                    <option>Cherry</option>
-                    <option>Coconut</option>
-                    <option>Grapefruit</option>
-                    <option>Kiwi</option>
-                    <option>Lemon</option>
-                    <option>Lime</option>
-                    <option>Mango</option>
-                    <option>Orange</option>
-                    <option>Papaya</option>
+                    {% for n in list_dep %}
+                        <option value="{{ n["id"] }}">{{ n["name"] }}</option>
+                    {% endfor %}
                 </select>
         <p>База данных</p>
         <select required multiple="multiple" name="db_eis" id="db_eis_select">
+
                     <option>Apple</option>
                     <option>Banana</option>
                     <option>Blueberry</option>
@@ -147,6 +139,12 @@
                     <option>Orange</option>
                     <option>Papaya</option>
                 </select>
+        <p>Выгружать амб. талоны  Да<input type="radio" id="export_amd_talon" name="export_amd_talon" value="True">Нет<input type="radio" id="export_amd_talon" name="export_amd_talon" value="False"></p>
+        <p>Выгружать диаг. иссл. (Диагностические АРМы)  Да<input type="radio" id="export_diagnostic_talon" name="export_diagnostic_talon" value="True">Нет<input type="radio" id="export_diagnostic_talon" name="export_diagnostic_talon" value="False"></p>
+        <p>Выгружать лаб. иссл.  Да<input type="radio" id="export_lab_talon" name="export_lab_talon" value="True">Нет<input type="radio" id="export_lab_talon" name="export_lab_talon" value="False"></p>
+        <p>Выгружать СМП вызовы  Да<input type="radio" id="export_smp_talon" name="export_smp_talon" value="True">Нет<input type="radio" id="export_smp_talon" name="export_smp_talon" value="False"></p>
+        <p>Включить проверки от РГС  Да<input type="radio" id="check_РГС" name="check_РГС" value="True">Нет<input type="radio" id="check_РГС" name="check_РГС" value="False"></p>
+        <p>Выгружать по дате обработки  Да<input type="radio" id="export_date" name="export_date" value="True">Нет<input type="radio" id="export_date" name="export_date" value="False"></p>
                 <button type="submit">Submit</button>
 </div>
     </form>
@@ -157,6 +155,7 @@
             multi(select, {
                 enable_search: false
             });
+
             var select = document.getElementById("db_eis_select");
             multi(select, {
                 enable_search: false
@@ -169,6 +168,10 @@
             multi(select, {
                 enable_search: false
             });
+            $('#visit_purpose_select').find(':not(:item selected)').prop('disabled',true);
+            /*$('#type_visit_select')find(':not(:selected)').prop('disabled',true);
+            $('#db_eis_select')find(':not(:selected)').prop('disabled',true);
+            $('#dep_select')find(':not(:selected)').prop('disabled',true);*/
         </script>
 </body>
 
