@@ -46,6 +46,11 @@ def logout():
 def showListTasks():
     return render_template('listtasks.html')
 
+@app.route('/createTask', methods=['GET', 'POST'])
+def createTask():
+    if request.method == 'POST':
+        print(request.form.getlist('favorite_fruits'))
+        return "Ok"
 
 @app.route('/task/<func>')
 def create_task(func):
@@ -71,6 +76,9 @@ def get_list_queue():
 def clear_queue():
     queue.empty()
     return "Clear"
+@app.route('/exportoms')
+def show_export():
+    return render_template("exportOMS.html")
 
 
 if __name__ == '__main__':

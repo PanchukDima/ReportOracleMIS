@@ -36,8 +36,8 @@ class database():
                 print(task)
                 tasks["tasks"].append({"keyid": task[0], "userid": task[1], "taskid": task[2], "nametask": task[3], "ttl": task[4], "dateStart": task[5], "dateStop": task[6], "status": task[7]})
 
-            print(json.dumps(tasks ,ensure_ascii=False).encode("utf-8"))
-            return json.dumps(tasks ,ensure_ascii=False).encode("utf-8")
+            print(json.dumps(tasks, ensure_ascii=False).encode("utf-8"))
+            return json.dumps(tasks, ensure_ascii=False).encode("utf-8")
     def callSql(self, sqltext):
         with cx_Oracle.connect(username, password, database_name) as connection:
             cursor = connection.cursor()
