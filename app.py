@@ -51,9 +51,28 @@ def showListTasks():
 def createTask():
     if request.method == 'POST':
         if request.form['typedata'] == 'exportoms':
+            """CALL pkg_eis_export.export_eis_amb(TO_DATE('2020-08-11 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+                                          , TO_DATE('2020-08-11 00:00:00', 'yyyy-mm-dd hh24:mi:ss')
+                                          , '48, 49'
+                                          , 48131
+                                          ,
+                                          '56, 52, 28, 27, 20, 18, 7, 45, 29, 17, 23, 54, 53, 41, 36, 34, 30, 16, 2, 50, 43, 32, 14, 3, 12, 11, 10, 48, 38, 35, 4, 46, 44, 13, 33, 15, 55, 49, 47, 39, 37, 1, 24, 22, 21, 19, 8'
+                                          , 1
+                                          , NULL
+                                          , NULL
+                                          , 0
+                                          , 0
+                                          , '1'
+                                          , 1
+                                          , 1
+                                          , 0
+                                          , 1
+                                          , 0
+                                          , 1
+                                          , 1
+                                          ,?)"""
 
-
-        return "Ok"
+            return "Ok"
 
 @app.route('/task/<func>')
 def create_task(func):
