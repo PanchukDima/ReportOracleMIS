@@ -31,7 +31,8 @@ def migrate_asov_to_ariadna():
     db = database()
     db.callSql("begin solution_med.pkg_unique_asov.MIGRATE_asov_TO_ariadna(); commit; end;")
     return "OK"
-def exportEIS():
+
+def exportEIS(sqlcall):
     db = database()
-    db.callSql("begin solution_med.pkg_unique_asov.MIGRATE_asov_TO_ariadna(); commit; end;")
-    return "OK"
+    data = db.callSql(sqlcall)
+    return data

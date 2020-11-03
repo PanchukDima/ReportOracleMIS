@@ -83,20 +83,17 @@
 </div>
 <div class="container">
     <form action="/createTask" method="post" name="exportOMSForm" novalidate>
+        <input name="typedata" type="hidden" value="exportoms">
         <p>Дата С:<input type="date" name="date_in"/></p>
         <p>Дата По:<input type="date" name="date_to"/></p>
         <p>Отделения</p><br>
         <select required multiple="multiple" name="departments" id="dep_select">
-
                     {% for n in list_dep %}
                         <option value="{{ n["id"] }}">{{ n["name"] }}</option>
                     {% endfor %}
-
                 </select>
-
         <p>База данных</p>
         <select required multiple="multiple" name="db_eis" id="db_eis_select">
-
                     {% for n in db_eis %}
                         <option value="{{ n["id"] }}">{{ n["name"] }}</option>
                     {% endfor %}

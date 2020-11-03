@@ -50,7 +50,9 @@ def showListTasks():
 @app.route('/createTask', methods=['GET', 'POST'])
 def createTask():
     if request.method == 'POST':
-        print(request.form.getlist('departments'))
+        if request.form['typedata'] == 'exportoms':
+
+
         return "Ok"
 
 @app.route('/task/<func>')
@@ -73,10 +75,12 @@ def result_task(id):
 def get_list_queue():
     db = database()
     return db.getListTasks(session['userid'])
+
 @app.route('/queue/clear')
 def clear_queue():
     queue.empty()
     return "Clear"
+
 @app.route('/exportoms')
 def show_export():
     db = database()
@@ -84,7 +88,11 @@ def show_export():
     type_visit = db.getTypeVisit()
     visit_purpose = db.getVisitPurpose()
     list_dep = db.getDepList()
-    return render_template("exportOMS.html", list_dep=list_dep, db_eis=db_eis,type_visit=type_visit,visit_purpose=visit_purpose)
+    return render_template("exportOMS.html",
+                           list_dep=list_dep,
+                           db_eis=db_eis,
+                           type_visit=type_visit,
+                           visit_purpose=visit_purpose)
 
 
 if __name__ == '__main__':
